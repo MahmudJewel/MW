@@ -27,6 +27,16 @@
 ####  Frameworks
 	React (18.2.0)
 
+## API ROUTES
+| METHOD | ROUTE | FUNCTIONALITY |ACCESS|
+| ------- | ----- | ------------- | ------------- |
+| *GET* | ```/product/api/all-products/``` | _Get all products_| _All users_|
+| *PUT* | ```/product/api/edit/<id>/``` | _Update product_|_Admin users_|
+| *POST* | ```/product/api/all-products/``` | _Create new product_|_Admin users_|
+| *GET* | ```/product/api/edit/<id>/``` | _Get single product_|_Admin users_|
+
+
+
 # Setup
 The first thing to do is to clone the repository:
 ```sh
