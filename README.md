@@ -30,7 +30,7 @@
 # Setup
 The first thing to do is to clone the repository:
 ```sh
-$ git clone https://github.com/MahmudJewel/Simple-calculator.git
+$ git clone https://github.com/MahmudJewel/MW/tree/dev.1.0.0
 ```
 ### Back-end
 Create a virtual environment to install dependencies in and activate it:
@@ -52,3 +52,15 @@ Once `pip` has finished downloading the dependencies:
 (venv)$ python manage.py runserver 8000
 ```
 
+# Screenshot
+### Product List
+![ Product List](https://github.com/MahmudJewel/MW/blob/dev.1.0.0/screenshot/0-product%20list.jpg)
+
+### Filter Page
+![Filter Page](https://github.com/MahmudJewel/MW/blob/dev.1.0.0/screenshot/1-filter.jpg)
+
+### Create Product
+![Ceate Product](https://github.com/MahmudJewel/MW/blob/dev.1.0.0/screenshot/3-Create%20product.jpg)
+
+### Edit Product
+![ Edit Product](https://github.com/MahmudJewel/MW/blob/dev.1.0.0/screenshot/5-api-edit%20product.jpg)
