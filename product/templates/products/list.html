@@ -1,0 +1,215 @@
+{% extends 'backend/base.html' %}
+
+{% block title %} Product List {% endblock %}
+{% load distinctProductVariants %}
+{% block content %}
+
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Products</h1>
+    </div>
+
+
+    <div class="card">
+        <form action="" method="get" class="card-header">
+            <div class="form-row justify-content-between">
+                <div class="col-md-2">
+                    <input type="text" name="title" placeholder="Product Title" class="form-control">
+                </div>
+                <!-- <div class="col-md-2">
+                    <select name="variant" id="" class="form-control">
+                        <option selected disabled>--Select A Variant--</option>
+
+                    </select>
+                </div> -->
+
+                <!-- new  -->
+                <div class="col-md-2 m-auto dropdown ">
+                      <select name="dropdown" class="form-control"
+                    style="width:150px;">
+                    {% for v in variant %}
+                    <option value="" selected disabled><b>{{v.title}}</b></option>
+                    {% distinctProductVariants v.productvariant_set.all  as distinctProductVariant%}
+                    {% for i in distinctProductVariant %}
+                        <!-- <option value="{{i.id}}">{{i.variant_title}}</option> -->
+                        <option value="{{i.variant_title}}">{{i.variant_title}}</option>
+                    {% endfor %}
+                    
+                    {% endfor %}
+            </select>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Price Range</span>
+                        </div>
+                        <input type="text" name="price_from" aria-label="First name" placeholder="From"
+                               class="form-control">
+                        <input type="text" name="price_to" aria-label="Last name" placeholder="To" class="form-control">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <input type="date" name="date" placeholder="Date" class="form-control">
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary float-right"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+
+        <div class="card-body">
+            <div class="table-response">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Variant</th>
+                        <th width="150px">Action</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <!-- <tr>
+                        <td>1</td>
+                        <td>T-Shirt <br> Created at : 25-Aug-2020</td>
+                        <td>Quality product in low cost</td>
+                        <td>
+                            <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
+                                <dt class="col-sm-3 pb-0">
+                                    XL/ Black/ Full
+                                </dt>
+                                <dd class="col-sm-9">
+                                    <dl class="row mb-0">
+                                        <dd class="col-sm-4 pb-0">Price : 200.0</dd>
+                                        <dd class="col-sm-8 pb-0">InStock : 50.</dd>
+                                    </dl>
+                                </dd>
+                                <dt class="col-sm-3 pb-0">
+                                    XL/ Black/ Half
+                                </dt>
+                                <dd class="col-sm-9">
+                                    <dl class="row mb-0">
+                                        <dd class="col-sm-4 pb-0">Price : 200.0</dd>
+                                        <dd class="col-sm-8 pb-0">InStock : 50.</dd>
+                                    </dl>
+                                </dd>
+                                <dt class="col-sm-3 pb-0">
+                                    L/ Black/ Full
+                                </dt>
+                                <dd class="col-sm-9">
+                                    <dl class="row mb-0">
+                                        <dd class="col-sm-4 pb-0">Price : 200.0</dd>
+                                        <dd class="col-sm-8 pb-0">InStock : 50.</dd>
+                                    </dl>
+                                </dd>
+                                <dt class="col-sm-3 pb-0">
+                                    L/ Black/ Half
+                                </dt>
+                                <dd class="col-sm-9">
+                                    <dl class="row mb-0">
+                                        <dd class="col-sm-4 pb-0">Price : 200.0</dd>
+                                        <dd class="col-sm-8 pb-0">InStock : 50.</dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+                            <button onclick="$('#variant').toggleClass('h-auto')" class="btn btn-sm btn-link">Show more
+                            </button>
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="#" class="btn btn-success">Edit</a>
+                            </div>
+                        </td>
+                    </tr> -->
+
+                    
+
+                    {% for product in products %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{product.title}} <br> Created at : {{product.created_at}}</td>
+                        <td>{{product.description}}</td>
+                        
+                        <td>
+                            {% for product_variant_price in product.productvariantprice_set.all %}
+                            <dl class="row mb-0" style="height: 80px; overflow: hidden" id="variant">
+                                <dt class="col-sm-3 pb-0">
+                                    {{product_variant_price.product_variant_one.variant_title}}/
+                                    {{product_variant_price.product_variant_two.variant_title}}/
+                                    {{product_variant_price.product_variant_three.variant_title}}
+                                </dt>
+                                <dd class="col-sm-9">
+                                    <dl class="row mb-0">
+                                        <dd class="col-sm-4 pb-0">Price : {{product_variant_price.price}}</dd>
+                                        <dd class="col-sm-8 pb-0">InStock : {{product_variant_price.stock}}</dd>
+                                    </dl>
+                                </dd>
+                            </dl>
+                            {% endfor %}
+                            <button onclick="$('#variant').toggleClass('h-auto')" class="btn btn-sm btn-link">Show more
+                            </button>
+                        </td>
+                        
+                        <td>
+                            <div class="btn-group btn-group-sm">
+                                <a href="/product/edit/{{product.id}}" class="btn btn-success">Edit</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+
+        <!-- for paginations -->
+<div class="card-footer">
+    <br><br>
+    <div class="row">
+      <div class="col-md-6 text-muted">
+        Showing {{products.start_index }} to {{products.end_index }} out of
+        {{total_products}}
+      </div>
+      <div class="col-md-6 text" style="display: flex; justify-content: end">
+        {% if products.has_other_pages %}
+        <div class="btn-group me-2" role="group" aria-label="First group">
+          {% if products.has_previous %}
+          <button type="button" class="btn btn-outline-primary">
+            <a href="?page={{ products.previous_page_number }}">&laquo;</a>
+          </button>
+          {% else %}
+          <button type="button" class="btn btn-outline-primary disabled">
+            <span>&laquo;</span>
+          </button>
+          {% endif %} {% for i in products.paginator.page_range %} 
+          {% if products.number == i %}
+          <button type="button" class="btn btn-outline-primary active">
+            {{ i }}<span class="sr-only">(current)</span>
+          </button>
+          {% else %}
+          <button type="button" class="btn btn-outline-primary">
+            <a href="?page={{ i }}" class="p-2">{{ i }}</a>
+          </button>
+          {% endif %} {% endfor %} {% if products.has_next %}
+          <button type="button" class="btn btn-outline-primary">
+            <a href="?page={{ products.next_page_number }}">&raquo;</a>
+          </button>
+          {% else %}
+          <button type="button" class="btn btn-outline-primary disabled">
+            <span>&raquo;</span>
+          </button>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+    </div>
+
+
+{% endblock %}
